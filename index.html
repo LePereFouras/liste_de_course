@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste de Courses FitGirl</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 0.95em;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            margin: 20px;
+            border-radius: 8px;
+        }
+
+        .info-box p {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .content {
+            padding: 20px 30px 30px;
+        }
+
+        .category {
+            margin-bottom: 30px;
+        }
+
+        .category-title {
+            color: #667eea;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-icon {
+            font-size: 1.2em;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: #fafafa;
+        }
+
+        .item:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .item.checked {
+            background: #e8f5e9;
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .item.checked .checkbox {
+            background: #667eea;
+        }
+
+        .checkmark {
+            color: white;
+            font-size: 16px;
+            display: none;
+        }
+
+        .item.checked .checkmark {
+            display: block;
+        }
+
+        .item-text {
+            flex: 1;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        .progress-bar {
+            margin: 20px;
+            background: #e0e0e0;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .reset-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .reset-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛒 Liste de Courses FitGirl</h1>
+            <p>Votre guide nutritionnel pour la semaine</p>
+        </div>
+
+        <div class="info-box">
+            <p><strong>💡 Conseil :</strong> Les produits ci-dessous peuvent être trouvés chez Grand Frais, Lidl ou Leclerc. N'oubliez pas de vous hydrater régulièrement !</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar">0%</div>
+        </div>
+
+        <div class="content" id="listContent">
+            <div class="category">
+                <div class="category-title">
+                    <span class="category-icon">🍖</span>
+                    Viandes & Poissons
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Poulet</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Dinde</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Poisson (saumon, colin, etc.)</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Escalope de veau</div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-title">
+                    <span class="category-icon">🥛</span>
+                    Produits laitiers & sources de protéines
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Fromage blanc 0%</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Skyr nature (marque Alpro ou Skyr)</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Œufs</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Carré Frais (riche en protéines)</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Bride Light (version allégée)</div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-title">
+                    <span class="category-icon">🍚</span>
+                    Féculents
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Riz basmati ou complet</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Pâtes complètes</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Pommes de terre / patates douces</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Flocons d'avoine</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Quinoa</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Pain complet ou de seigle</div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-title">
+                    <span class="category-icon">🥦</span>
+                    Légumes
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Courgettes</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Brocolis</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Épinards</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Poivrons</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Haricots verts</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Chou-fleur</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Carottes</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Aubergines</div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-title">
+                    <span class="category-icon">🍌</span>
+                    Fruits
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Bananes</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Fruits rouges (frais ou surgelés)</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Citrons</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Kiwis</div>
+                </div>
+            </div>
+
+            <div class="category">
+                <div class="category-title">
+                    <span class="category-icon">🥑</span>
+                    Autres indispensables
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Sauce soja</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Huile d'olive</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Avocats</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Amandes / noix</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Beurre de cacahuète sans sucre ajouté</div>
+                </div>
+                <div class="item" onclick="toggleItem(this)">
+                    <div class="checkbox"><span class="checkmark">✓</span></div>
+                    <div class="item-text">Eau (penser à s'hydrater régulièrement)</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="reset-btn" onclick="resetList()">🔄 Réinitialiser la liste</button>
+
+        <div class="footer">
+            Liste créée par FitGirl • Bon shopping ! 💪
+        </div>
+    </div>
+
+    <script>
+        function toggleItem(element) {
+            element.classList.toggle('checked');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const items = document.querySelectorAll('.item');
+            const checkedItems = document.querySelectorAll('.item.checked');
+            const progress = (checkedItems.length / items.length) * 100;
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = Math.round(progress) + '%';
+        }
+
+        function resetList() {
+            const items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                item.classList.remove('checked');
+            });
+            updateProgress();
+        }
+
+        // Initialiser la progression au chargement
+        updateProgress();
+    </script>
+</body>
+</html>
