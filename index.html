@@ -343,6 +343,45 @@
             transform: rotate(45deg);
         }
 
+        /* ─── COACH NOTE BOTTOM ─── */
+        .coach-note-bottom {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin: 0 20px 20px;
+            padding: 18px 20px;
+            background: var(--dark2);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--gold);
+            border-radius: 4px;
+        }
+
+        .cnb-icon {
+            font-size: 1.4em;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .cnb-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.68em;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+
+        .cnb-content p {
+            font-size: 0.88em;
+            color: var(--white-dim);
+            line-height: 1.6;
+        }
+
+        .cnb-content p strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
         /* ─── TIPS ─── */
         .tips-grid {
             display: grid;
@@ -442,12 +481,7 @@
         <div class="header-line"><div class="header-diamond"></div></div>
         <div class="header-sub">By Rania · Coach Sportive</div>
     </div>
-
-    <div class="coach-note">
-        <div class="label">⚡ Note Coach</div>
-        <p>Les produits ci-dessous peuvent être trouvés chez Grand Frais, Lidl ou Leclerc. Privilégie les aliments bruts, évite les ultra-transformés. Adapte la liste selon tes goûts et ton mode de vie. Hydrate-toi régulièrement !</p>
-    </div>
-
+    <br><br>
     <div class="progress-wrap">
         <div class="progress-label">
             <span>Progression shopping</span>
@@ -626,6 +660,14 @@
         </div>
 
     </div><!-- /content -->
+
+    <div class="coach-note-bottom">
+        <div class="cnb-icon">💡</div>
+        <div class="cnb-content">
+            <div class="cnb-label">NOTE COACH</div>
+            <p>Cette liste constitue une base pour une alimentation saine, équilibrée et efficace. <strong>Adapte-la selon tes goûts et ton mode de vie.</strong></p>
+        </div>
+    </div>
 
     <div class="tips-grid">
         <div class="tip"><span class="tip-icon">◆</span> Priorise les aliments bruts et non transformés</div>
